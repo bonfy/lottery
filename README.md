@@ -3,7 +3,7 @@
 大乐透 双色球 随机选号
 
 ```cmd
-python3 main.py
+python3 lottery/cli.py
 ```
 
 ## 目标
