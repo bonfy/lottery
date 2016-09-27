@@ -81,9 +81,30 @@ def dct_change_cold_weight(dct, wt=10):
 
 ##################
 #
+#   初始化
+#
+##################
+
+
+def init_balls_with_wt(r_len, b_len, wt=0):
+    """
+    初始化balls dict
+    """
+    r_lst = list(range(1, r_len + 1))
+    b_lst = list(range(1, b_len + 1))
+    r_wt = [wt] * r_len
+    b_wt = [wt] * b_len
+    r_dct = dict(zip(r_lst, r_wt))
+    b_dct = dict(zip(b_lst, b_wt))
+    return r_dct, b_dct
+
+
+##################
+#
 #  随机操作
 #
 ##################
+
 
 def create_lottery_number_with_weight(f_dct, b_dct, f_num, b_num):
     """
