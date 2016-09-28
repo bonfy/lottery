@@ -6,8 +6,12 @@ DLT
 
 from pyquery import PyQuery as pq
 from .base import Base
-from ..utils import (create_lottery_number_with_weight, requests_get, init_balls_with_wt,
-                     dct_add_lst_with_weight, str_to_lst, dct_change_cold_weight, dct_add_dct)
+from ..utils import (create_lottery_number_with_weight,
+                     create_lottery_number_with_lucky,
+                     requests_get, init_balls_with_wt,
+                     dct_add_lst_with_weight, str_to_lst,
+                     dct_change_cold_weight, dct_add_dct)
+from ..const import LuckyLst, LuckyWt
 
 
 class DLT(Base):
@@ -81,4 +85,31 @@ class DLT(Base):
             print("dict error")
 
     def create_with_lucky(self):
-        pass
+        if self.rDct and self.bDct:
+            # dct copy, 防止调用修改原dct
+            return create_lottery_number_with_lucky(self.rDct.copy(), self.bDct.copy(), self.rNum, self.bNum, LuckyLst, LuckyWt)
+        else:
+            print("dict error")
+
+    def show(self):
+        """
+        展示
+        """
+        n, w, l = self.prompt()
+        print(u'大乐透随机摇号：')
+        print(u'-'*10)
+        if n:
+            print(u'纯随机')
+            for i in range(n):
+                print(self.create())
+
+        if w:
+            print(u'权重随机')
+            for i in range(w):
+                print(self.create_with_wt())
+
+        if l:
+            print(u'幸运数字')
+            for i in range(l):
+                print(self.create_with_lucky())
+

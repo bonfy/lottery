@@ -44,7 +44,7 @@ class Base:
         """
         创建纯随机
         """
-        return random.sample(self.rLst, self.rNum), random.sample(self.bLst, self.bNum)
+        return sorted(random.sample(self.rLst, self.rNum)), sorted(random.sample(self.bLst, self.bNum))
 
     def create_with_wt(self):
         """
@@ -59,7 +59,7 @@ class Base:
         pass
 
     def prompt(self):
-        opt = u'请输入你要生成的随机组数(纯随机 权重随机 带幸运号权重随机)\n如： 1 2 2'
+        opt = u'请输入你要生成的随机组数(纯随机 权重随机 带幸运号权重随机)\n如： 1 2 2\n'
         ipt = input(opt)
         try:
             lst = ipt.split(' ')
@@ -70,3 +70,6 @@ class Base:
         except Exception:
             print(u'输入错误，使用作者预定义组数1 2 2')
             return 1, 2, 2
+
+    def show(self):
+        print(u'Show from Base')
