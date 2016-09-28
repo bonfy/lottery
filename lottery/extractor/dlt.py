@@ -10,8 +10,10 @@ from ..utils import (create_lottery_number_with_weight,
                      create_lottery_number_with_lucky,
                      requests_get, init_balls_with_wt,
                      dct_add_lst_with_weight, str_to_lst,
-                     dct_change_cold_weight, dct_add_dct)
+                     dct_change_cold_weight, dct_add_dct,
+                     lottery_number_to_pt)
 from ..const import LuckyLst, LuckyWt
+from prettytable import PrettyTable
 
 
 class DLT(Base):
@@ -95,21 +97,31 @@ class DLT(Base):
         """
         展示
         """
+        header = '编号 随机号码 随机种类'.split()
+        pt = PrettyTable()
+        pt._set_field_names(header)
+        # align left
+        # pt.align["随机号码"] = "l"
+
         n, w, l = self.prompt()
+        idx = 1
         print(u'大乐透随机摇号：')
-        print(u'-'*10)
         if n:
-            print(u'纯随机')
             for i in range(n):
-                print(self.create())
+                row = [idx, lottery_number_to_pt(self.create()), u'纯随机']
+                pt.add_row(row)
+                idx = idx+1
 
         if w:
-            print(u'权重随机')
             for i in range(w):
-                print(self.create_with_wt())
+                row = [idx, lottery_number_to_pt(self.create_with_wt()), u'权重随机']
+                pt.add_row(row)
+                idx = idx+1
 
         if l:
-            print(u'幸运数字')
             for i in range(l):
-                print(self.create_with_lucky())
+                row = [idx, lottery_number_to_pt(self.create_with_lucky()), u'幸运数字']
+                pt.add_row(row)
+                idx = idx+1
 
+        print(pt)
