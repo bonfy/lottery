@@ -4,6 +4,7 @@
 import requests
 from requests.exceptions import ConnectionError, Timeout
 import random
+import urllib
 
 ##################
 #
@@ -13,7 +14,20 @@ import random
 
 
 def requests_get(url, **kwargs):
+
     PROXIES = None
+
+    # 如果有代理，请把下面注释去掉
+    # 自行处理
+
+    # _usr = 'user'
+    # _pwd = 'pwd'
+    # _encoded_pwd = urllib.parse.quote(_pwd)
+
+    # PROXIES = {
+    #     'http': 'http://{usr}:{pwd}@proxy:port'.format(usr=_usr, pwd=_encoded_pwd),
+    # }
+
     HEADERS = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1)'
                       ' AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -78,7 +92,6 @@ def dct_change_cold_weight(dct, wt=10):
         dct[key] = wt - dct[key] if wt > dct[key] else 0
     return dct
 
-
 ##################
 #
 #   初始化
@@ -98,7 +111,6 @@ def init_balls_with_wt(r_len, b_len, wt=0):
     b_dct = dict(zip(b_lst, b_wt))
     return r_dct, b_dct
 
-
 ##################
 #
 #  随机操作
@@ -112,6 +124,12 @@ def create_lottery_number_with_weight(f_dct, b_dct, f_num, b_num):
     """
     f_rst = create_some_number_with_weight(f_dct, f_num)
     b_rst = create_some_number_with_weight(b_dct, b_num)
+    return sorted(f_rst), sorted(b_rst)
+
+
+def create_lottery_number_with_lucky(f_dct, b_dct, f_num, b_num, lucky_lst, lucky_wt):
+    f_rst = create_number_weight_luckynumber(f_dct, lucky_lst, lucky_wt, f_num)
+    b_rst = create_number_weight_luckynumber(b_dct, lucky_lst, lucky_wt, b_num)
     return sorted(f_rst), sorted(b_rst)
 
 
