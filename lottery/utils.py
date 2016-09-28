@@ -171,3 +171,17 @@ def create_number_weight_luckynumber(dct,
             # print(item, ' in dict')
             dct[item] += lucky_weight
     return create_some_number_with_weight(dct, num)
+
+
+def lottery_number_to_pt(tup):
+    rLst, bLst = tup
+    r = ' '.join([num_to_str(i) for i in rLst])
+    b = ' '.join([num_to_str(i) for i in bLst])
+    return r + '  ' + b
+
+
+def num_to_str(num):
+    if num < 10:
+        return '0'+str(num)
+    else:
+        return str(num)
