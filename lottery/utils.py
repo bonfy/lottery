@@ -66,6 +66,10 @@ def str_to_lst(balls):
 
 
 def dct_add_dct(x, y):
+    """
+    输入两个dict , 返回并集
+    @return type: dict
+    """
     from collections import Counter
     X, Y = Counter(x), Counter(y)
     rst = dict(X + Y)
@@ -74,9 +78,22 @@ def dct_add_dct(x, y):
 
 def dct_add_lst_with_weight(dct, lst, wt):
     """
-    lst为幸运数字list
-    wt 为权重
+    @param lst: 数字list
+    @param wt : 权重
+    @return type: dict
+
     """
+    # 万一设置幸运数字 所有可选号之中
+    # 例如 双色球没有35
+
+    # 本来想用在幸运数字中的，发现没有用到
+    # 反而用在了 历史号的权重上了
+    # AnyWay 保险点，多加个判断总是没错的
+
+    rs = set(lst) - set(dct.keys())
+    if rs:
+        for i in list(rs):
+            lst.remove(i)
     wt = [wt] * len(lst)
     dct_wt = dict(zip(lst, wt))
     rst = dct_add_dct(dct, dct_wt)
@@ -138,12 +155,17 @@ def create_one_number_with_weight(dct):
     输入权重dict 返回一个数字
     """
     total = sum(dct.values())
+    # 将keys乱序，使结果更加随机
+    # print(type(dct.keys()))
+    keys_lst = list(dct.keys())
+    random.shuffle(keys_lst)
+
     rad = random.randint(1, total)
     cur_total = 0
-    for k, v in dct.items():
-        cur_total += v
+    for k in keys_lst:
+        cur_total += dct[k]
         if rad <= cur_total:
-            return k, v
+            return k
 
 
 def create_some_number_with_weight(dct, num):
@@ -152,7 +174,7 @@ def create_some_number_with_weight(dct, num):
     """
     rst = []
     while num > 0:
-        rst_k, rst_v = create_one_number_with_weight(dct)
+        rst_k = create_one_number_with_weight(dct)
         rst.append(rst_k)
         del dct[rst_k]
         num = num - 1
