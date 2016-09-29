@@ -1,0 +1,5 @@
+requests
+pyquery==1.2.13
+pytest==3.0.2
+
+

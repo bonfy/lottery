@@ -144,7 +144,8 @@ def create_lottery_number_with_weight(f_dct, b_dct, f_num, b_num):
     return sorted(f_rst), sorted(b_rst)
 
 
-def create_lottery_number_with_lucky(f_dct, b_dct, f_num, b_num, lucky_lst, lucky_wt):
+def create_lottery_number_with_lucky(f_dct,
+                                     b_dct, f_num, b_num, lucky_lst, lucky_wt):
     f_rst = create_number_weight_luckynumber(f_dct, lucky_lst, lucky_wt, f_num)
     b_rst = create_number_weight_luckynumber(b_dct, lucky_lst, lucky_wt, b_num)
     return sorted(f_rst), sorted(b_rst)
@@ -204,6 +205,6 @@ def lottery_number_to_pt(tup):
 
 def num_to_str(num):
     if num < 10:
-        return '0'+str(num)
+        return '0' + str(num)
     else:
         return str(num)

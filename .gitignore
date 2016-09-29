@@ -13,3 +13,8 @@ htmlcov/
 # virtualenv
 .venv/
 venv/
+
+
+# doc
+
+docs/
