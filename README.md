@@ -1,5 +1,9 @@
 # lottery
 
+.. image:: https://travis-ci.org/bonfy/lottery.svg?branch=master
+   :target: https://travis-ci.org/bonfy/lottery
+   :alt: Travis CI Status
+
 大乐透 双色球 随机选号
 
 ```cmd
