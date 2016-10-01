@@ -1,7 +1,5 @@
 # lottery
 
-大乐透 双色球 随机选号
-
 ```cmd
 python3 lottery/cli.py
 ```
